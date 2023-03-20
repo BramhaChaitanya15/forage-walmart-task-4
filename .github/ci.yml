@@ -1,0 +1,12 @@
+name: data-munging-walmart-task
+run-name: ${{ github.actor }} is running Data Munging Walmart Task
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+      - run: python my_app.py
