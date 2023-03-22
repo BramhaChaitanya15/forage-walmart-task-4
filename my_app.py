@@ -31,26 +31,30 @@ with open('data/shipping_data_0.csv') as csvfile0:
       shipment.append(shiprow)
       
 #print(shipment)
-
-'''with open('data/shipping_data_2.csv') as csvfile2:
-  csvReader = csv.reader(csvfile2)
+shipmentId = []
+with open('data/shipping_data_2.csv') as csvfile2:
+  with open('data/shipping_data_1.csv') as csvfile1:
+    csvProductReader1 = csv.reader(csvfile1)
+    for row in csvProductReader1:
+      if not skipped:
+        skipped = True
+        continue
+      shipID = row[0]
+      product = row[1]
+      time = row[2]
+      if time != "false":
+        shipmentId.append(shipID)
+        if product not in products:
+          products.append(product)
+          
+print(shipmentId)
 '''
-
-with open('data/shipping_data_1.csv') as csvfile1:
-  csvReader = csv.reader(csvfile1)
-  for row in csvReader:
-    if not skipped:
-      skipped = True
-      continue
-    product = row[1]
-    time = row[2]
-    if time != "false":
-      if product not in products:
-        products.append(product)
-
-  
-
-     
+    csvReader2 = csv.reader(csvfile2)
+    for row in csvReader2:
+      csvfile1.seek(0)
+      
+      csvReader1 = csv.reader(csvfile1)
+'''     
 connection = sqlite3.connect("shipment_database.db")
 
 cursor = connection.cursor()
