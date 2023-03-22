@@ -3,7 +3,7 @@ import sqlite3
 
 products = []
 shipment = []
-
+#accessing data of first csv file
 with open('data/shipping_data_0.csv') as csvfile0:
   csvReader = csv.reader(csvfile0)
   skipped = False
@@ -30,16 +30,16 @@ with open('data/shipping_data_0.csv') as csvfile0:
       
       shipment.append(shiprow)
       
-#print(shipment)
+#accessing data of second and third csv file
 shipmentId = []
 shiprows = {}
 skip = False
 with open('data/shipping_data_2.csv') as csvfile2:
   with open('data/shipping_data_1.csv') as csvfile1:
     csvProductReader1 = csv.reader(csvfile1)
-    tide=""
-    tanam=""
-    taqua=0
+    tid=""
+    tname=""
+    tqua=0
     for row in csvProductReader1:
       if not skip:
         skip = True
@@ -48,22 +48,28 @@ with open('data/shipping_data_2.csv') as csvfile2:
       product = row[1]
       time = row[2]
       if time != "false":
-        if tide!=shipID or tanam !=product:
+        if tid!=shipID or tname !=product:
           shiprow={}
-          shiprow["shipid"]=tide
-          shiprow["product"]=tanam
-          shiprow["quantity"]=taqua
-          if tide!="" and tanam!="" and taqua!=0:
+          shiprow["shipid"]=tid
+          shiprow["product"]=tname
+          shiprow["quantity"]=tqua
+          if tid!="" and tname!="" and tqua!=0:
             shipmentId.append(shiprow)
-          tide=shipID
-          tanam=product
-          taqua=0
-        taqua+=1
-        #shipmentId.append(shipID)
+          tid=shipID
+          tname=product
+          tqua=0
+        tqua+=1
+        
         if product not in products:
           products.append(product)
           
-#print(shipmentId)
+    shiprow={}
+    shiprow["shipid"]=tid
+    shiprow["product"]=tname
+    shiprow["quantity"]=tqua
+    shipmentId.append(shiprow)
+    
+
     csvReader2 = csv.reader(csvfile2)
     for shiprow in shipmentId:
       sid=shiprow["shipid"]
@@ -74,14 +80,8 @@ with open('data/shipping_data_2.csv') as csvfile2:
           shiprow["origin"] = row[1]
           shiprow["destination"] = row[2]
       shipment.append(shiprow)
-          
-'''
-    csvReader2 = csv.reader(csvfile2)
-    for row in csvReader2:
-      csvfile1.seek(0)
-      
-      csvReader1 = csv.reader(csvfile1)
-'''     
+ 
+#for inserting data in the database
 connection = sqlite3.connect("shipment_database.db")
 
 cursor = connection.cursor()
