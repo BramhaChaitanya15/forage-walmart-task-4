@@ -36,4 +36,4 @@ for product in products:
   i+=1
 connection.commit()
 view = cursor.execute("SELECT * FROM product")
-print(view)
+print(view.fetchall())
