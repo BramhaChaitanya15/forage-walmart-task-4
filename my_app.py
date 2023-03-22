@@ -30,20 +30,27 @@ with open('data/shipping_data_0.csv') as csvfile0:
       
       shipment.append(shiprow)
       
-print(shipment)
+#print(shipment)
 
-'''with open('data/shipping_data_1.csv') as csvfile1:
+'''with open('data/shipping_data_2.csv') as csvfile2:
+  csvReader = csv.reader(csvfile2)
+'''
+
+with open('data/shipping_data_1.csv') as csvfile1:
   csvReader = csv.reader(csvfile1)
-  skipped = False
-  
   for row in csvReader:
-    if not skipped:
-      skipped = True
-      continue
-    product = row[1]
+  if not skipped:
+    skipped = True
+    continue
+  product = row[1]
+  time = row[2]
+  if time != "false":
     if product not in products:
       products.append(product)
-'''      
+
+  
+
+     
 connection = sqlite3.connect("shipment_database.db")
 
 cursor = connection.cursor()
@@ -54,7 +61,7 @@ for product in products:
 connection.commit()
 view = cursor.execute("SELECT * FROM product")
 print(view.fetchall())
-
+'''
 j = 1
 for shiprow in shipment:
   proID = cursor.execute("SELECT id FROM product WHERE name = '" + shiprow["product"] + "'").fetchone()
@@ -62,6 +69,6 @@ for shiprow in shipment:
                  + str(shiprow["quantity"]) + ", '" + shiprow["origin"] + "','" + shiprow["destination"] + "')")
   j+=1
   
-connection.commit()
-view = cursor.execute("SELECT * FROM shipment")
-print(view.fetchall())
+connection.commit()'''
+#view = cursor.execute("SELECT * FROM shipment")
+#print(view.fetchall())
