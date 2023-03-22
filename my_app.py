@@ -2,9 +2,6 @@ import csv
 import sqlite3
 
 products = []
-origin = []
-destination = []
-quantity = []
 shipment = []
 
 with open('data/shipping_data_0.csv') as csvfile0:
@@ -16,22 +13,20 @@ with open('data/shipping_data_0.csv') as csvfile0:
       skipped = True
       continue
    
-    ori = row[0]
-    des = row[1]
+    origin = row[0]
+    destination = row[1]
     product = row[2]
     time = row[3]
-    qua = row[4]
+    quantity = row[4]
     shiprow = {} 
     if time != "false":
       if product not in products:
         products.append(product)
-      origin.append(ori)
-      destination.append(des)
-      quantity.append(qua)
+        
       shiprow["product"] = product
-      shiprow["origin"] = ori
-      shiprow["destination"] = des
-      shiprow["quantity"] = qua
+      shiprow["origin"] = origin
+      shiprow["destination"] = destination
+      shiprow["quantity"] = quantity
       
       shipment.append(shiprow)
       
@@ -58,4 +53,15 @@ for product in products:
   i+=1
 connection.commit()
 view = cursor.execute("SELECT * FROM product")
+print(view.fetchall())
+
+j = 1
+for shiprow in shipment:
+  proID = cursor.execute("SELECT id FROM product WHERE name = '" + shiprow["product"] + "'").fetchone()
+  cursor.execute("INSERT INTO shipment VALUES ( " + str(j) + "," + str(proID[0]) + ","
+                 + str(shiprow["quantity"]) + ", '" + shiprow["origin"] + "','" + shiprow["destination"] + "')")
+  j+=1
+  
+connection.commit()
+view = cursor.execute("SELECT * FROM shipment")
 print(view.fetchall())
