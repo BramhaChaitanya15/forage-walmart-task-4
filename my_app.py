@@ -59,7 +59,7 @@ with open('data/shipping_data_2.csv') as csvfile2:
           tanam=product
           taqua=0
         taqua+=1
-        shipmentId.append(shipID)
+        #shipmentId.append(shipID)
         if product not in products:
           products.append(product)
           
