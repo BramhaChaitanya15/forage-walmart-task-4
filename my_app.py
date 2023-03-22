@@ -81,7 +81,7 @@ with open('data/shipping_data_2.csv') as csvfile2:
           shiprow["destination"] = row[2]
       shipment.append(shiprow)
  
-#for inserting data in the database
+#for inserting data in the database and print is for debug purposes
 connection = sqlite3.connect("shipment_database.db")
 
 cursor = connection.cursor()
