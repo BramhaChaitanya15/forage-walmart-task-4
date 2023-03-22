@@ -2,6 +2,9 @@ import csv
 import sqlite3
 
 products = []
+origin = []
+destination = []
+quantity = []
 
 with open('data/shipping_data_0.csv') as csvfile0:
   csvReader = csv.reader(csvfile0)
@@ -14,6 +17,18 @@ with open('data/shipping_data_0.csv') as csvfile0:
     product = row[2]
     if product not in products:
       products.append(product)
+    qua = row[4]
+    ori = row[0]
+    des = row[1]
+    time = row[3]
+    if time not False:
+      origin.append(ori)
+      destination.append(des)
+      quantity.append(qua)
+      
+print(origin)
+print(quantity)
+print(destination)
 
 with open('data/shipping_data_1.csv') as csvfile1:
   csvReader = csv.reader(csvfile1)
