@@ -21,7 +21,7 @@ with open('data/shipping_data_0.csv') as csvfile0:
     ori = row[0]
     des = row[1]
     time = row[3]
-    if time not False:
+    if time != False:
       origin.append(ori)
       destination.append(des)
       quantity.append(qua)
