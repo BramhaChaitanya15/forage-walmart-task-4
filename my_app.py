@@ -5,6 +5,7 @@ products = []
 origin = []
 destination = []
 quantity = []
+shipment = []
 
 with open('data/shipping_data_0.csv') as csvfile0:
   csvReader = csv.reader(csvfile0)
@@ -14,23 +15,29 @@ with open('data/shipping_data_0.csv') as csvfile0:
     if not skipped:
       skipped = True
       continue
-    product = row[2]
-    if product not in products:
-      products.append(product)
-    qua = row[4]
+   
     ori = row[0]
     des = row[1]
+    product = row[2]
     time = row[3]
+    qua = row[4]
+    shiprow = {} 
     if time != "false":
+      if product not in products:
+        products.append(product)
       origin.append(ori)
       destination.append(des)
       quantity.append(qua)
+      shiprow["product"] = product
+      shiprow["origin"] = ori
+      shiprow["destination"] = des
+      shiprow["quantity"] = qua
       
-print(origin)
-print(quantity)
-print(destination)
+      shipment.append(shiprow)
+      
+print(shipment)
 
-with open('data/shipping_data_1.csv') as csvfile1:
+'''with open('data/shipping_data_1.csv') as csvfile1:
   csvReader = csv.reader(csvfile1)
   skipped = False
   
@@ -41,7 +48,7 @@ with open('data/shipping_data_1.csv') as csvfile1:
     product = row[1]
     if product not in products:
       products.append(product)
-      
+'''      
 connection = sqlite3.connect("shipment_database.db")
 
 cursor = connection.cursor()
