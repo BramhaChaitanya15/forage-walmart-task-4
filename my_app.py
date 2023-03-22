@@ -1,4 +1,5 @@
 import csv
+import sqlite3
 
 products = []
 
@@ -26,4 +27,10 @@ with open('data/shipping_data_1.csv') as csvfile1:
     if product not in products:
       products.append(product)
       
-print(products)
+connection = sqlite3.connect("shipment_database.db")
+
+cursor = connection.cursor()
+i = 1
+for product in products:
+  cursor.execute("INSERT INTO product VALUES ( " + i + "," + product + ")")
+  i+=1
