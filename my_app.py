@@ -34,3 +34,6 @@ i = 1
 for product in products:
   cursor.execute("INSERT INTO product VALUES ( " + i + "," + product + ")")
   i+=1
+cursor.commit()
+view = cursor.execute("SELECT * FROM product")
+print(view)
