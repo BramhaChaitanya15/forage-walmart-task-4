@@ -32,7 +32,7 @@ connection = sqlite3.connect("shipment_database.db")
 cursor = connection.cursor()
 i = 1
 for product in products:
-  cursor.execute("INSERT INTO product VALUES ( " + i + "," + product + ")")
+  cursor.execute("INSERT INTO product VALUES ( " + str(i) + "," + product + ")")
   i+=1
 cursor.commit()
 view = cursor.execute("SELECT * FROM product")
