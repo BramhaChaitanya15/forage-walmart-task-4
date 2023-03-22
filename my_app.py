@@ -39,14 +39,14 @@ with open('data/shipping_data_0.csv') as csvfile0:
 with open('data/shipping_data_1.csv') as csvfile1:
   csvReader = csv.reader(csvfile1)
   for row in csvReader:
-  if not skipped:
-    skipped = True
-    continue
-  product = row[1]
-  time = row[2]
-  if time != "false":
-    if product not in products:
-      products.append(product)
+    if not skipped:
+      skipped = True
+      continue
+    product = row[1]
+    time = row[2]
+    if time != "false":
+      if product not in products:
+        products.append(product)
 
   
 
